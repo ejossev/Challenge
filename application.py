@@ -364,6 +364,12 @@ class ChargingHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         self.wfile.write(response)
 
 if __name__ == '__main__':
-    server_address = ('', 8000)
+    import os
+    assert 'CHARGING_APP_PORT' in os.environ, "Please specify CHARGING_APP_PORT variable"
+    listen_port = os.environ['CHARGING_APP_PORT']
+    assert listen_port.isdigit()
+    listen_port = int(listen_port)
+    assert listen_port >= 1000 and listen_port < 65536
+    server_address = ('', listen_port)
     httpd = http.server.HTTPServer(server_address, ChargingHTTPRequestHandler)
     httpd.serve_forever()
