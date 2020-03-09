@@ -99,7 +99,7 @@ class Model():
 
     def print_model_results(self):
         rv = ""
-        for tenant in set(self.subscriptions.values()):
+        for tenant in sorted(set(self.subscriptions.values())):
             rv += "Tenant: %s\n" % tenant
             rv += "=======================\n\n"
             rv += "Month   Calculated consumption  Breakdown per subscription (units)\n"
@@ -127,7 +127,7 @@ class Model():
     def json_model_results(self):
         rv = "[ "
         tenant_entries = []
-        for tenant in set(self.subscriptions.values()):
+        for tenant in sorted(set(self.subscriptions.values())):
             tenant_subsriptions = [s for s in self.subscriptions \
                                    if self.subscriptions[s] == tenant]
             tenant_entry = "{ "
